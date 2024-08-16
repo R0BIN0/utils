@@ -11,7 +11,7 @@ export const _isArray = (arr: any): boolean => Array.prototype.isPrototypeOf(arr
  * @param {T} item - New item to add.
  * @returns {T[] | null}
  */
-export const _addArray = <T extends { id: string }>(arr: T[], item: T): T[] | null => {
+export const _addArray = <T>(arr: T[], item: T): T[] | null => {
   if (!arr || !_isArray(arr) || !item) return null;
   return [...arr, item];
 };
@@ -22,7 +22,7 @@ export const _addArray = <T extends { id: string }>(arr: T[], item: T): T[] | nu
  * @param {string} id - ID of the item to remove.
  * @returns {T[] | null}
  */
-export const _removeArray = <T extends { id: string }>(arr: T[], id: string): T[] | null => {
+export const _removeArray = <T extends { id: string | number }>(arr: T[], id: string | number): T[] | null => {
   if (!arr || !_isArray(arr) || !id) return null;
   return arr.filter((a) => a.id !== id);
 };
@@ -33,7 +33,7 @@ export const _removeArray = <T extends { id: string }>(arr: T[], id: string): T[
  * @param {T} item - Updated item that will replace the old item.
  * @returns {T[] | null}
  */
-export const _updateArray = <T extends { id: string }>(arr: T[], item: T): T[] | null => {
+export const _updateArray = <T extends { id: string | number }>(arr: T[], item: Partial<T>): T[] | null => {
   if (!arr || !_isArray(arr) || !item) return null;
   return arr.map((a) => (a.id === item.id ? { ...a, ...item } : a));
 };
@@ -44,7 +44,7 @@ export const _updateArray = <T extends { id: string }>(arr: T[], item: T): T[] |
  * @param {string} id - ID of the item to find.
  * @returns {T | null}
  */
-export const _findById = <T extends { id: string }>(arr: T[], id: string): T | null => {
+export const _findById = <T extends { id: string | number }>(arr: T[], id: string | number): T | null => {
   if (!_isArray(arr) || !arr || !id) return null;
   const item = arr.find((a) => a.id === id);
   if (!item) return null;
